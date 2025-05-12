@@ -12,7 +12,6 @@ class UserViewModel: ObservableObject {
     var password: String = ""
     var role: Int = -1
     
-    
     func login(completion: @escaping (Bool) -> Void) {
         
         let defaults = UserDefaults.standard
@@ -25,7 +24,6 @@ class UserViewModel: ObservableObject {
                         completion(true)
 
                     case .failure(let error):
-                        print(error.localizedDescription)
                         completion(false)
                 }
             }
@@ -36,7 +34,6 @@ class UserViewModel: ObservableObject {
         StandartUserService.shared.signup(username: username, password: password, role: role) { response in
             DispatchQueue.main.async {
                 guard let response = response else {
-                    print("Sign up error")
                     return
                 }
                 

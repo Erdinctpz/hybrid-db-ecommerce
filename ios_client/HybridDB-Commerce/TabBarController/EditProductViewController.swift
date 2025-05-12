@@ -112,7 +112,6 @@ class EditProductViewController: UIViewController {
         let convertedPriceStr = price.replacingOccurrences(of: ",", with: ".")
         
         guard let convertedPriceDouble = Double(convertedPriceStr) else {
-            print("unvalid price!")
             return
         }
         

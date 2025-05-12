@@ -55,25 +55,20 @@ class CustomerService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Found no data or error occurred.")
                 completion(nil)
                 return
             }
             
             do {
                 let productResponse = try JSONDecoder().decode(ProductResponse.self, from: data)
-                //print(productResponse)
                 if productResponse.success {
-                    print("Fetched successfully!")
                     completion(productResponse.data)
                 }
                 else {
-                    print("Failed to fetch products")
                     completion(nil)
                 }
             }
             catch {
-                print("Failed to decode data:", error)
                 completion(nil)
             }
         }.resume()
@@ -96,19 +91,16 @@ class CustomerService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Found no data or error occurred.")
                 completion(nil)
                 return
             }
             
             guard let responseString = try? JSONDecoder().decode(CartResponseBody.self, from: data) else {
-                print("Failed to decode")
                 completion(nil)
                 return
             }
             
             guard let message = responseString.message else {
-                print("message error")
                 completion(nil)
                 return
             }
@@ -121,7 +113,6 @@ class CustomerService {
     
     func getCart(token: String, completion: @escaping (Cart?) -> Void) {
         guard let url = URL(string: "http://localhost:3000/getCart") else {
-            print("Invalid URL")
             completion(nil)
             return
         }
@@ -132,24 +123,19 @@ class CustomerService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Found no data or error occurred.")
                 completion(nil)
                 return
             }
             
             do {
-                // response, birden fazla Product içeren bir dizi olmalı
                 let response = try JSONDecoder().decode(Carts.self, from: data)
                 if response.success {
-                    print("Fetched successfully!")
-                    completion(response.cart) // Dönen veriyi [Product] dizisine aktar
+                    completion(response.cart)
                 }
                 else {
-                    print("Failed to fetch products")
                     completion(nil)
                 }
             } catch {
-                print("Failed to decode data:", error)
                 completion(nil)
             }
         }.resume()
@@ -157,7 +143,6 @@ class CustomerService {
     
     func getCartWithPopulate(token: String, completion: @escaping (PopulateCart?) -> Void) {
         guard let url = URL(string: "http://localhost:3000/getCartWithPopulate") else {
-            print("Invalid URL")
             completion(nil)
             return
         }
@@ -168,7 +153,6 @@ class CustomerService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Found no data or error occurred.")
                 completion(nil)
                 return
             }
@@ -176,15 +160,12 @@ class CustomerService {
             do {
                 let response = try JSONDecoder().decode(PopulateCarts.self, from: data)
                 if response.success {
-                    print("Fetched successfully!")
                     completion(response.cart)
                 }
                 else {
-                    print("Failed to fetch products")
                     completion(nil)
                 }
             } catch {
-                print("Failed to decode data:", error)
                 completion(nil)
             }
             
@@ -193,7 +174,6 @@ class CustomerService {
     
     func removeProductFromCart(token: String, product_id: String, completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "http://localhost:3000/removeProductFromCart") else {
-            print("Invalid URL")
             completion(false)
             return
         }
@@ -209,19 +189,16 @@ class CustomerService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Found no data or error occurred.")
                 completion(false)
                 return
             }
             
             guard let response = try? JSONDecoder().decode(CartResponseBody.self, from: data) else {
-                print("Failed to decode")
                 completion(false)
                 return
             }
             
             guard let message = response.message else {
-                print("message error")
                 completion(false)
                 return
             }
@@ -233,7 +210,6 @@ class CustomerService {
     
     func clearCart(token: String, completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "http://localhost:3000/clearCart") else {
-            print("Invalid URL")
             completion(false)
             return
         }
@@ -244,13 +220,11 @@ class CustomerService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Found no data or error occurred.")
                 completion(false)
                 return
             }
             
             guard let response = try? JSONDecoder().decode(CartResponseBody.self, from: data) else {
-                print("Failed to decode")
                 completion(false)
                 return
             }

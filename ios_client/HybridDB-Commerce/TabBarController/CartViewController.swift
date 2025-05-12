@@ -181,9 +181,7 @@ class CartViewController: UIViewController {
                 var message: String
                     
                 if success {
-                    print("Before clearing: \(self.myProducts.count)")
                     self.myProducts.removeAll()
-                    print("After clearing: \(self.myProducts.count)")
                     self.totalPrice = 0.0
                     
                     self.alertLabel.isHidden = false
@@ -220,9 +218,7 @@ class CartViewController: UIViewController {
                 var message: String
                     
                 if success {
-                    print("Before clearing: \(self.myProducts.count)")
                     self.myProducts.removeAll()
-                    print("After clearing: \(self.myProducts.count)")
                     self.totalPrice = 0.0
                     
                     self.listTableView.reloadData()
@@ -285,9 +281,6 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
                         self.checkoutButton.isEnabled = false
                     }
                 }
-            }
-            else {
-                print("failed to remove product")
             }
         }
     }

@@ -14,16 +14,13 @@ class SupplierViewModel {
     var token = UserDefaults.standard.string(forKey: "jsonwebtoken")!
     
     func fetchProducts(token: String, completion: @escaping (Bool) -> Void) {
-        
         SupplierService.shared.fetchProducts(token: self.token) { [weak self] products in
             DispatchQueue.main.async {
                 if let products = products {
                     self?.productList = products
-                    print("Products fetched after adding:", self?.productList.count)
                     completion(true)
                 }
                 else {
-                    print("Failed to fetch products")
                     completion(false)
                 }
             }
@@ -39,7 +36,6 @@ class SupplierViewModel {
                         completion(true)
                     }
                     else {
-                        print("products undefined...")
                         completion(false)
                     }
                 }
@@ -56,13 +52,11 @@ class SupplierViewModel {
                         completion(true)
                     }
                     else {
-                        print("products undefined...")
                         completion(false)
                     }
                 }
             }
             else {
-                print("Can not update product")
                 completion(false)
             }
         }
@@ -77,13 +71,11 @@ class SupplierViewModel {
                         completion(true)
                     }
                     else {
-                        print("products undefined...")
                         completion(false)
                     }
                 }
             }
             else {
-                print("Can not update product")
                 completion(false)
             }
         }

@@ -36,9 +36,6 @@ class SupplierViewController: UIViewController {
                     self.listTableView.reloadData()
                 }
             }
-            else {
-                print("Failed to fetch products")
-            }
             
             if self.supplier.productList.isEmpty {
                 self.alertLabel.isHidden = false
@@ -70,9 +67,6 @@ class SupplierViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.listTableView.reloadData()
                 }
-            }
-            else {
-                print("Failed to fetch products")
             }
         }
 
@@ -146,7 +140,6 @@ class SupplierViewController: UIViewController {
             }
         })
         present(ac, animated: true)
-        print(self.supplier.productList)
     }
     
     @objc func editProducts() {
@@ -184,7 +177,6 @@ extension SupplierViewController: UITableViewDelegate, UITableViewDataSource {
         editVC.productNameField.text = supplier.productList[indexPath.row].product_name
         editVC.priceField.text = String(supplier.productList[indexPath.row].price)
         editVC.product_id = supplier.productList[indexPath.row]._id
-        print(editVC.product_id)
         
         self.navigationController?.pushViewController(editVC, animated: true)
     }

@@ -55,25 +55,19 @@ class SupplierService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("Found no data or error occurred.")
                 completion(nil)
                 return
             }
             
             do {
-                // response, birden fazla Product içeren bir dizi olmalı
                 let productResponse = try JSONDecoder().decode(ProductResponse.self, from: data)
-                //print(productResponse)
                 if productResponse.success {
-                    print("Fetched successfully!")
-                    completion(productResponse.data) // Dönen veriyi [Product] dizisine aktar
+                    completion(productResponse.data)
                 }
                 else {
-                    print("Failed to fetch products")
                     completion(nil)
                 }
             } catch {
-                print("Failed to decode data:", error)
                 completion(nil)
             }
         }.resume()
@@ -97,7 +91,6 @@ class SupplierService {
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 completion(false)
-                print("no data for new product")
                 return
             }
             
@@ -121,7 +114,7 @@ class SupplierService {
             return
         }
         
-        let body = UpdateProductRequestBody(_id: product_id, product_name: product_name, price: price) //body for updating product
+        let body = UpdateProductRequestBody(_id: product_id, product_name: product_name, price: price)
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -132,13 +125,11 @@ class SupplierService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("no data for updating product")
                 completion(false)
                 return
             }
             
             guard let responseString = try? JSONDecoder().decode(UpdateProductResponse.self, from: data) else {
-                print("responseString error")
                 completion(false)
                 return
             }
@@ -168,18 +159,15 @@ class SupplierService {
             let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
             request.httpBody = jsonData
         } catch {
-            print("Failed to serialize JSON:", error)
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("no data for updating product")
                 completion(false)
                 return
             }
             
             guard let responseString = try? JSONDecoder().decode(AddProductResponse.self, from: data) else {
-                print("responseString error")
                 completion(false)
                 return
             }

@@ -138,9 +138,6 @@ class ProfileViewController: UIViewController {
                     self.passwordField.text = self.password
                 }
             }
-            else {
-                print("Can not get user info.")
-            }
         }
     }
     

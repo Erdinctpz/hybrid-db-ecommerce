@@ -79,8 +79,6 @@ class CustomerViewController: UIViewController {
             
             if let products = products{
                 self.products = products
-                print(self.products)
-                
                 
                 DispatchQueue.main.async {
                     self.listTableView.reloadData()

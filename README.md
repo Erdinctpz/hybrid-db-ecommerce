@@ -36,14 +36,17 @@ Developing a basic user login system and a shopping cart application on iOS usin
 
 ## Installation and Setup
 
+### Backend
+
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Erdinctpz/my_backend_app.git
-   cd my_backend_app
+   git clone https://github.com/Erdinctpz/hybrid-db-ecommerce.git
+   cd hybrid-db-ecommerce
    ```
 
 2. **Install dependencies:**
    ```bash
+   cd my_backend_app
    npm install
    ```
 
@@ -62,6 +65,22 @@ Developing a basic user login system and a shopping cart application on iOS usin
    ```bash
    node app.js # or node app
    ```
+
+### Frontend - iOS
+1. **Open the Project:**
+   - Open the ios_client folder in Xcode.
+
+2. **Start the Backend Server:**
+   - The iOS app sends requests to http://localhost:3000, so make sure the Node.js backend server is running before launching the app.
+
+      > ⚠️ If you're testing on a physical device, replace localhost with your computer's local IP address in the code.
+
+3. **Run the App:**
+   - Choose a simulator in Xcode and press Cmd + R to build and run the application.
+
+   **Note:**
+      - The app is written in native Swift using URLSession for networking. No third-party libraries or additional setup is required.
+
 
 ---
 
@@ -117,3 +136,31 @@ Response:
    "token": "your_jwt_token_here"
 }
 ```
+---
+
+## Screenshots
+
+
+### Any User
+<p float="middle">
+  <img src="screenshots/anyUser/login_screen.png" alt = "1" width=300>
+</p>
+
+---
+
+### Supplier
+<p float="middle">
+  <img src="screenshots/supplier/your_products_screen.png" alt = "1" width=300>
+  <img src="screenshots/supplier/adding_product_screen.png" alt = "1" width=300>
+  <img src="screenshots/supplier/editing_product_screen.png" alt = "1" width=300>
+</p>
+
+---
+
+### Customer
+
+<p float="middle">
+  <img src="screenshots/customer/all_products_screen.png" alt = "1" width=300>
+  <img src="screenshots/customer/all_products_screen2.png" alt = "1" width=300>
+  <img src="screenshots/customer/cart_screen.png" alt = "1" width=300>
+</p>

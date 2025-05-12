@@ -20,13 +20,11 @@ class CustomTextField: UITextField {
     
     func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .systemGray4//UIColor(white: 0.94, alpha: 1)
+        self.backgroundColor = .systemGray4
         self.layer.cornerRadius = 8
         self.clearButtonMode = .whileEditing
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: self.bounds.width))
         self.leftViewMode = .always
-        
-//        self.inputViewController?.toolbarItems
     }
 
 }

@@ -22,10 +22,6 @@ struct LoginResponseBody: Codable {
     let token: String?
 }
 
-//struct SignUpResponseBody: Codable {
-//    let message: String?
-//}
-
 struct UserInfo: Codable {
     let username: String?
     let password: String?
@@ -80,9 +76,8 @@ class StandartUserService {
         }.resume()
     }
     
-    func signup(username: String, password: String, role: Int, completion: @escaping (SignUpResponseBody?)/*(Result<String, AuthenticationError>)*/ -> Void) {
+    func signup(username: String, password: String, role: Int, completion: @escaping (SignUpResponseBody?) -> Void) {
         guard let url = URL(string: "http://localhost:3000/createUser") else {
-            //completion(.failure((.custom(errorMessage: "URL is not correct"))))
             completion(nil)
             return
         }
@@ -96,37 +91,31 @@ class StandartUserService {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data, error == nil else {
-                //completion(.failure(.custom(errorMessage: "No data")))
                 completion(nil)
                 return
             }
             
             guard let signupResponse = try? JSONDecoder().decode(SignUpResponseBody.self, from: data) else {
-                //completion(.failure(.invalidCredentials))
                 completion(nil)
                 return
             }
             
             guard let message = signupResponse.message else {
-                //completion(.failure(.invalidCredentials))
                 completion(nil)
                 return
             }
             
-            //completion(.success(message))
             completion(signupResponse)
         }.resume()
     }
     
     func getUserInfo(completion: @escaping (getUserInfoResponseBody?) -> Void) {
         guard let token = UserDefaults.standard.string(forKey: "jsonwebtoken") else {
-            print("Not found token")
             completion(nil)
             return
         }
         
         guard let url = URL(string: "http://localhost:3000/getUserInfo") else {
-            print("URL is not correct!")
             completion(nil)
             return
         }
@@ -137,7 +126,6 @@ class StandartUserService {
     
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("No data")
                 completion(nil)
                 return
             }
@@ -146,17 +134,13 @@ class StandartUserService {
                 let userResponse = try JSONDecoder().decode(getUserInfoResponseBody.self, from: data)
                 
                 if userResponse.success {
-                    print("Fetched user's information.")
-                    print(userResponse)
                     completion(userResponse)
                 }
                 else {
-                    print("Failed to fetch user info.")
                     completion(nil)
                 }
             }
             catch {
-                print("Failed to decode data:", error)
                 completion(nil)
             }
         }.resume()
@@ -164,13 +148,11 @@ class StandartUserService {
     
     func updateUserInfo(username: String, password: String, completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "http://localhost:3000/updateUserInfo") else {
-            print("Url is not correct.")
             completion(false)
             return
         }
         
         guard let token = UserDefaults.standard.string(forKey: "jsonwebtoken") else {
-            print("Not found token")
             completion(false)
             return
         }
@@ -186,13 +168,11 @@ class StandartUserService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                print("data error")
                 completion(false)
                 return
             }
             
             guard let responseString = try? JSONDecoder().decode(SignUpResponseBody.self, from: data) else {
-                print("responseString error")
                 completion(false)
                 return
             }

@@ -39,7 +39,6 @@ app.get('/', (req, res) => {
     });
 })
 
-
 function authenticate(allowedRoles) {
     return function (req, res, next) {
         const authHeader = req.headers['authorization'];
@@ -76,10 +75,7 @@ app.post('/login', (req, res) => {
             return res.status(500).json({ message: "Database error", success: false });
         }
         
-        // User Found
-        let value = -1
         if (!(results.length == 0)) {
-            //generate a token
             const role = results[0].role
             const user_id = results[0].user_id
 
@@ -333,8 +329,6 @@ app.post('/addToCart', authenticate([Roles.CUSTOMER]), async (req, res) => {
             });
         }
 
-
-
         const product = await Product.findById(product_id)
         if (!product) return res.status(404).json({
             success: false, 
@@ -476,7 +470,6 @@ app.post('/clearCart', authenticate([Roles.CUSTOMER]), async (req, res) => {
 });
 
 /* --------------- Customer --------------- */
-
 
 
 
